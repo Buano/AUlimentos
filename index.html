@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AUlimentos</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+    <!-- =========================
+         CABEÇALHO
+    ========================== -->
+
+    <header>
+
+        <div class="logo">
+            <img src="logo.png" alt="Logo AUlimentos">
+            <h1>AUlimentos</h1>
+        </div>
+
+        <nav>
+            <a href="#inicio">Início</a>
+            <a href="#produtos">Produtos</a>
+            <a href="#contato">Contato</a>
+
+            <button class="botao-conta" onclick="abrirConta()" id="botao-conta">👤 Criar conta</button>
+
+            <!-- CARRINHO -->
+            <button class="botao-carrinho" onclick="abrirCarrinho()">
+                🛒 Carrinho
+                <span id="contador-carrinho">0</span>
+            </button>
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         BANNER
+    ========================== -->
+
+    <main>
+
+        <section id="inicio" class="banner">
+
+            <div class="patinhas">
+                🐾　🐾　🐾
+            </div>
+
+            <h2>
+                Tudo para o seu melhor amigo
+            </h2>
+
+            <p>
+                Alimentos, brinquedos e acessórios
+                para cães e gatos.
+            </p>
+
+            <button onclick="verProdutos()">
+                Ver produtos
+            </button>
+
+        </section>
+
+
+        <!-- =========================
+             PRODUTOS
+        ========================== -->
+
+        <section id="produtos">
+
+            <h2 class="titulo-secao">
+                Nossos produtos
+            </h2>
+
+            <div class="produtos">
+
+
+                <!-- PRODUTO 1 -->
+
+                <div class="produto cachorro">
+
+                    <div class="patinhas-produto">
+                        🐾 🐾
+                    </div>
+
+                    <div class="produto-img">
+                        🐶
+                    </div>
+
+                    <h3>
+                        Ração para Cães
+                    </h3>
+
+                    <p>
+                        Alimentação completa e nutritiva
+                        para seu cachorro.
+                    </p>
+
+                    <strong>
+                        R$ 59,90
+                    </strong>
+
+                    <button onclick="adicionarCarrinho(
+                        'Ração para Cães',
+                        59.90
+                    )">
+                        Comprar
+                    </button>
+
+                </div>
+
+
+                <!-- PRODUTO 2 -->
+
+                <div class="produto gato">
+
+                    <div class="patinhas-produto">
+                        🐾 🐾
+                    </div>
+
+                    <div class="produto-img">
+                        🐱
+                    </div>
+
+                    <h3>
+                        Ração para Gatos
+                    </h3>
+
+                    <p>
+                        Nutrição especial para manter
+                        seu gato saudável.
+                    </p>
+
+                    <strong>
+                        R$ 49,90
+                    </strong>
+
+                    <button onclick="adicionarCarrinho(
+                        'Ração para Gatos',
+                        49.90
+                    )">
+                        Comprar
+                    </button>
+
+                </div>
+
+
+                <!-- PRODUTO 3 -->
+
+                <div class="produto cachorro">
+
+                    <div class="patinhas-produto">
+                        🐾 🐾
+                    </div>
+
+                    <div class="produto-img">
+                        🦴
+                    </div>
+
+                    <h3>
+                        Petisco para Cães
+                    </h3>
+
+                    <p>
+                        Um delicioso agrado para
+                        recompensar seu melhor amigo.
+                    </p>
+
+                    <strong>
+                        R$ 19,90
+                    </strong>
+
+                    <button onclick="adicionarCarrinho(
+                        'Petisco para Cães',
+                        19.90
+                    )">
+                        Comprar
+                    </button>
+
+                </div>
+
+
+                <!-- PRODUTO 4 -->
+
+                <div class="produto gato">
+
+                    <div class="patinhas-produto">
+                        🐾 🐾
+                    </div>
+
+                    <div class="produto-img">
+                        🧶
+                    </div>
+
+                    <h3>
+                        Brinquedo para Gatos
+                    </h3>
+
+                    <p>
+                        Diversão garantida para seu
+                        companheiro felino.
+                    </p>
+
+                    <strong>
+                        R$ 24,90
+                    </strong>
+
+                    <button onclick="adicionarCarrinho(
+                        'Brinquedo para Gatos',
+                        24.90
+                    )">
+                        Comprar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CONTATO
+        ========================== -->
+
+        <section id="contato" class="contato">
+
+            <div class="patinhas">
+                🐾 🐾 🐾
+            </div>
+
+            <h2>
+                Entre em contato
+            </h2>
+
+            <p>
+                📱 WhatsApp: (11) 99999-9999
+            </p>
+
+            <p>
+                📧 Email: contato@aulimentos.com
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         CONTA DO CLIENTE
+    ========================== -->
+
+    <div id="conta-modal" class="modal-conta">
+        <div class="conta-conteudo">
+            <button class="fechar-modal" onclick="fecharConta()">✕</button>
+
+            <div id="conta-login-view">
+                <div class="icone-conta">🐾</div>
+                <h2 id="titulo-conta">Criar sua conta</h2>
+                <p class="subtitulo-conta">Cadastre-se para acompanhar sua experiência na AUlimentos.</p>
+
+                <form id="form-cadastro" onsubmit="cadastrarConta(event)">
+                    <label for="cad-nome">Nome completo</label>
+                    <input id="cad-nome" type="text" maxlength="200" placeholder="Ex.: João Silva" autocomplete="name">
+                    <small id="erro-cad-nome" class="erro-campo"></small>
+
+                    <label for="cad-email">E-mail</label>
+                    <input id="cad-email" type="email" maxlength="200" placeholder="Ex.: joao@gmail.com" autocomplete="email">
+                    <small id="erro-cad-email" class="erro-campo"></small>
+
+                    <label for="cad-telefone">Telefone</label>
+                    <input id="cad-telefone" type="tel" maxlength="20" placeholder="Ex.: (11) 99999-9999" autocomplete="tel">
+                    <small id="erro-cad-telefone" class="erro-campo"></small>
+
+                    <label for="cad-cidade">Cidade</label>
+                    <input id="cad-cidade" type="text" maxlength="100" placeholder="Ex.: São Paulo" autocomplete="address-level2">
+                    <small id="erro-cad-cidade" class="erro-campo"></small>
+
+                    <label for="cad-senha">Senha</label>
+                    <input id="cad-senha" type="password" minlength="6" placeholder="Mínimo de 6 caracteres" autocomplete="new-password">
+                    <small id="erro-cad-senha" class="erro-campo"></small>
+
+                    <label for="cad-senha-confirmacao">Confirmar senha</label>
+                    <input id="cad-senha-confirmacao" type="password" minlength="6" placeholder="Digite a senha novamente" autocomplete="new-password">
+                    <small id="erro-cad-senha-confirmacao" class="erro-campo"></small>
+
+                    <button class="botao-principal-conta" type="submit">Criar minha conta</button>
+                </form>
+
+                <p id="mensagem-conta" class="mensagem-conta" role="alert" aria-live="polite"></p>
+
+                <p class="troca-conta">Já possui uma conta? <button type="button" onclick="mostrarLogin()">Entrar</button></p>
+            </div>
+
+            <div id="conta-logada-view" class="conta-logada" style="display:none">
+                <div class="icone-conta">🐶</div>
+                <h2>Minha conta</h2>
+                <p id="boas-vindas-conta"></p>
+                <div class="dados-conta">
+                    <p><strong>E-mail:</strong> <span id="email-conta"></span></p>
+                </div>
+                <button class="botao-principal-conta" onclick="sairDaConta()">Sair da conta</button>
+            </div>
+
+            <div id="conta-entrar-view" style="display:none">
+                <div class="icone-conta">🔐</div>
+                <h2>Entrar na conta</h2>
+                <p class="subtitulo-conta">Acesse sua conta da AUlimentos.</p>
+                <form id="form-login" onsubmit="entrarConta(event)">
+                    <label for="login-email">E-mail</label>
+                    <input id="login-email" type="email" required placeholder="seu@gmail.com">
+
+                    <label for="login-senha">Senha</label>
+                    <input id="login-senha" type="password" required placeholder="Sua senha">
+
+                    <button class="botao-principal-conta" type="submit">Entrar</button>
+                </form>
+                <p id="mensagem-login" class="mensagem-conta"></p>
+                <p class="troca-conta">Ainda não possui conta? <button type="button" onclick="mostrarCadastro()">Criar conta</button></p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =========================
+         JANELA DO CARRINHO
+    ========================== -->
+
+    <div id="carrinho" class="carrinho">
+
+        <div class="carrinho-conteudo">
+
+            <div class="carrinho-cabecalho">
+
+                <h2>
+                    🛒 Seu Carrinho
+                </h2>
+
+                <button
+                    class="fechar-carrinho"
+                    onclick="fecharCarrinho()">
+                    ✕
+                </button>
+
+            </div>
+
+
+            <!-- Produtos do carrinho -->
+
+            <div id="lista-carrinho">
+
+                <p class="carrinho-vazio">
+                    Seu carrinho está vazio. 🐾
+                </p>
+
+            </div>
+
+
+            <!-- Total -->
+
+            <div class="carrinho-total">
+
+                <span>
+                    Total:
+                </span>
+
+                <strong id="total-carrinho">
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+
+            <!-- Finalizar -->
+
+            <button
+                class="finalizar"
+                onclick="finalizarCompra()">
+
+                Finalizar compra
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         RODAPÉ
+    ========================== -->
+
+    <footer>
+
+        <p>
+            🐾 © 2026 AUlimentos -
+            Todos os direitos reservados.
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
